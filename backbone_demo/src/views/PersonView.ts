@@ -7,6 +7,9 @@ import { PersonModel } from '../models/PersonModel';
 export class PersonView extends Backbone.View<PersonModel> {
 
   template = _.template(`
+    <style>
+      label { display: block; }
+    </style>
     <form>
       <label>
         First Name:
@@ -16,7 +19,7 @@ export class PersonView extends Backbone.View<PersonModel> {
         Last Name:
         <input type="text" name="lastName" value="<%= last_name %>">
       </label>
-      <button type="button">Save Person</button>
+      <!--<button type="button">Save Person</button>-->
     </form>
   `)
 
@@ -24,15 +27,23 @@ export class PersonView extends Backbone.View<PersonModel> {
 
     this.$el.html(this.template(this.model.attributes));
 
-    this.$el.find("button").on("click", () => {
-
-      const firstName = String(this.$el.find("input[name=firstName]").val());
-      const lastName = String(this.$el.find("input[name=lastName]").val());
-
-      this.model.set('first_name', firstName);
-      this.model.set('last_name', lastName);
-
+    this.$el.find("input[name=firstName]").on("blur", (evt) => {
+      this.model.set('first_name', (evt.currentTarget as HTMLInputElement).value);
     });
+
+    this.$el.find("input[name=lastName]").on("blur", (evt) => {
+      this.model.set('last_name', (evt.currentTarget as HTMLInputElement).value);
+    });
+
+    // this.$el.find("button").on("click", () => {
+
+    //   const firstName = String(this.$el.find("input[name=firstName]").val());
+    //   const lastName = String(this.$el.find("input[name=lastName]").val());
+
+    //   this.model.set('first_name', firstName);
+    //   this.model.set('last_name', lastName);
+
+    // });
 
     // using the built-in DOM API
 

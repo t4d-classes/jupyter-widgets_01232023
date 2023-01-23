@@ -7,6 +7,10 @@ const person = new PersonModel({
   last_name: 'Smith',
 });
 
+person.on('change', (...args) => {
+  console.log('person change: ', args);
+});
+
 const personView = new PersonView({ model: person });
 personView.render();
 document.querySelector('body').append(personView.el);
