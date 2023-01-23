@@ -9,17 +9,30 @@ export class PersonView extends Backbone.View<PersonModel> {
   template = _.template(`
     <form>
       <label>
-        First Name: <input type="text" value="<%= first_name %>">
+        First Name:
+        <input type="text" name="firstName" value="<%= first_name %>">
       </label>
       <label>
-        Last Name: <input type="text" value="<%= last_name %>">
+        Last Name:
+        <input type="text" name="lastName" value="<%= last_name %>">
       </label>
+      <button type="button">Save Person</button>
     </form>
   `)
 
   render() {
 
     this.$el.html(this.template(this.model.attributes));
+
+    this.$el.find("button").on("click", () => {
+
+      const firstName = String(this.$el.find("input[name=firstName]").val());
+      const lastName = String(this.$el.find("input[name=lastName]").val());
+
+      this.model.set('first_name', firstName);
+      this.model.set('last_name', lastName);
+
+    });
 
     // using the built-in DOM API
 
