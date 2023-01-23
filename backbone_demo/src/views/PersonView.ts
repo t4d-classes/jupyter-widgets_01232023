@@ -6,7 +6,22 @@ import { PersonModel } from '../models/PersonModel';
 
 export class PersonView extends Backbone.View<PersonModel> {
 
+  template = _.template(`
+    <form>
+      <label>
+        First Name: <input type="text" value="<%= first_name %>">
+      </label>
+      <label>
+        Last Name: <input type="text" value="<%= last_name %>">
+      </label>
+    </form>
+  `)
+
   render() {
+
+    this.$el.html(this.template(this.model.attributes));
+
+    // using the built-in DOM API
 
     // const firstNameDiv = document.createElement('div');
     // firstNameDiv.append(
@@ -22,13 +37,15 @@ export class PersonView extends Backbone.View<PersonModel> {
 
     // this.el.append(firstNameDiv, lastNameDiv);
 
-    const firstNameDiv = $("div");
-    firstNameDiv.append("First Name: " + this.model.get("first_name"));
+    // jQuery approach
 
-    const lastNameDiv = $("div");
-    lastNameDiv.append("Last Name: " + this.model.get("last_name"));
+    // const firstNameDiv = $("<div>");
+    // firstNameDiv.append("First Name: " + this.model.get("first_name"));
 
-    this.$el.append(firstNameDiv, lastNameDiv);
+    // const lastNameDiv = $("<div>");
+    // lastNameDiv.append("Last Name: " + this.model.get("last_name"));
+
+    // this.$el.append(firstNameDiv, lastNameDiv);
 
 
     return this;

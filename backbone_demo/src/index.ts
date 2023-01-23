@@ -9,6 +9,7 @@ const person = new PersonModel({
 
 const personView = new PersonView({ model: person });
 personView.render();
+document.querySelector('body').append(personView.el);
 
 
 
