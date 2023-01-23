@@ -7,7 +7,8 @@ const person = new PersonModel({
   last_name: 'Smith',
 });
 
-
+const personView = new PersonView({ model: person });
+personView.render();
 
 
 

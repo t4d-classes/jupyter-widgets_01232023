@@ -12,7 +12,6 @@ export class PersonModel extends Backbone.Model<IPersonModel> {
     // these properties will be sync with python object attributes,
     // the python naming style will be used
     return {
-      ...super.defaults(),
       first_name: '',
       last_name: '',
       favorite_foods: PersonModel.favorite_foods,
