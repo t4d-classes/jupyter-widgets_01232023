@@ -35,6 +35,14 @@ export class PersonView extends Backbone.View<PersonModel> {
       this.model.set('last_name', (evt.currentTarget as HTMLInputElement).value);
     });
 
+    this.listenTo(this.model, 'change:first_name', () => {
+      this.$el.find("input[name=firstName]").val(this.model.get('first_name'));
+    });
+
+    this.listenTo(this.model, 'change:last_name', () => {
+      this.$el.find("input[name=lastName]").val(this.model.get('last_name'));
+    });
+
     // this.$el.find("button").on("click", () => {
 
     //   const firstName = String(this.$el.find("input[name=firstName]").val());
