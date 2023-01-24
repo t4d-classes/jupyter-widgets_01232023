@@ -55,7 +55,7 @@ export class StockLookupView extends DOMWidgetView {
       </label>
       <button type="button" class="get-price-button"><%= button_text %></button>
     </form>
-    <div class="results">
+    <div class="results hide-results">
       <span class="results_symbol"><%= stock_symbol %></span>
       <span class="results_price"><%= stock_price %></span>
     </div>
@@ -74,9 +74,7 @@ export class StockLookupView extends DOMWidgetView {
       this.send({ name: 'lookup-request', stock_symbol: stockSymbol });
     });
 
-    // show/hide the results
     // populate the results
-
     this.model.on('change:stock_symbol', () => {
       const stockSymbol = this.model.get('stock_symbol');
       this.$el.find('input[name=stock_symbol]').val(stockSymbol);
@@ -86,6 +84,19 @@ export class StockLookupView extends DOMWidgetView {
     this.model.on('change:stock_price', () => {
       const stockPrice = Number(this.model.get('stock_symbol'));
       this.$el.find('span.results_price').text(stockPrice);
+    });
+
+    // show/hide the results
+    this.model.on('change', () => {
+      const stockSymbol = this.model.get('stock_symbol');
+      const stockPrice = Number(this.model.get('stock_symbol'));
+
+      const resultsDiv = this.$el.find('div.results');
+      if (stockSymbol.length === 0 && stockPrice < 0) {
+        resultsDiv.addClass('hide-results');
+      } else {
+        resultsDiv.removeClass('hide-results');
+      }
     });
 
     return this;
