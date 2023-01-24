@@ -74,12 +74,26 @@ export class StockLookupView extends DOMWidgetView {
     // select any element with a class name of get-price-button that
     // is a descendant of any element with the class name of stock-lookup-widget
     this.$el.find('.stock-lookup-widget .get-price-button').on('click', () => {
-      console.log('I was clicked!');
+      // retrieve the value from the input field
+      const stockSymbol = this.$el
+        .find('.stock-lookup-widget [name=stock_symbol]')
+        .val();
+      // using the comm to send data to the other side
+      this.send({ name: 'lookup-request', stock_symbol: stockSymbol });
     });
 
-    // retrieve the value from the input field
     // show/hide the results
     // populate the results
+
+    this.model.on('change:stock_symbol', () => {
+      const stockSymbol = this.model.get('stock_symbol');
+      this.$el.find('input[name=stock_symbol]').val(stockSymbol);
+      this.$el.find('span.results_symbol').text(stockSymbol);
+    });
+
+    this.model.on('change:stock_price', () => {
+
+    });
 
     return this;
   }
