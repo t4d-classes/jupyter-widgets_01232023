@@ -6,6 +6,7 @@
 
 from .widgets.example_widget import ExampleWidget
 from .widgets.stock_lookup_widget import StockLookupWidget
+from .widgets.stock_list_widget import StockListWidget
 from ._version import __version__, version_info
 
 def _jupyter_labextension_paths():

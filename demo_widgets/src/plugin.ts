@@ -9,6 +9,7 @@ import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import * as exampleWidgetExports from './widgets/example_widget';
 import * as stockLookupWidgetExports from './widgets/stock_lookup_widget';
+import * as stockListWidgetExports from './widgets/stock_list_widget';
 
 import { MODULE_NAME, MODULE_VERSION } from './version';
 
@@ -41,6 +42,7 @@ function activateWidgetExtension(
     exports: {
       ...exampleWidgetExports,
       ...stockLookupWidgetExports,
+      ...stockListWidgetExports,
     },
   });
 }

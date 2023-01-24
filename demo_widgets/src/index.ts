@@ -4,3 +4,4 @@
 export * from './version';
 export * from './widgets/example_widget';
 export * from './widgets/stock_lookup_widget';
+export * from './widgets/stock_list_widget';

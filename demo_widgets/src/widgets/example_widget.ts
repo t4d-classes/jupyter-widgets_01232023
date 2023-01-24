@@ -10,7 +10,7 @@ import {
 import { MODULE_NAME, MODULE_VERSION } from '../version';
 
 // Import the CSS
-import '../../css/widget.css';
+import '../../css/example_widget.css';
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {
@@ -44,7 +44,7 @@ export class ExampleModel extends DOMWidgetModel {
 
 export class ExampleView extends DOMWidgetView {
   render() {
-    this.el.classList.add('custom-widget');
+    this.el.classList.add('example-widget');
 
     this.value_changed();
     this.model.on('change:value', this.value_changed, this);
