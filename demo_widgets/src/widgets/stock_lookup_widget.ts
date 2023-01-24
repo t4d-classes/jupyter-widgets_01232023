@@ -67,17 +67,9 @@ export class StockLookupView extends DOMWidgetView {
     this.$el.html(this.template(this.model.attributes));
 
     // handle the button click
-    
-    // combinator selector, combines two selectors, and selects an
-    // element based upon the relationship between the selected elements
-    // 
-    // select any element with a class name of get-price-button that
-    // is a descendant of any element with the class name of stock-lookup-widget
-    this.$el.find('.stock-lookup-widget .get-price-button').on('click', () => {
+    this.$el.find('button.get-price-button').on('click', () => {
       // retrieve the value from the input field
-      const stockSymbol = this.$el
-        .find('.stock-lookup-widget [name=stock_symbol]')
-        .val();
+      const stockSymbol = this.$el.find('input[name=stock_symbol]').val();
       // using the comm to send data to the other side
       this.send({ name: 'lookup-request', stock_symbol: stockSymbol });
     });
@@ -92,7 +84,8 @@ export class StockLookupView extends DOMWidgetView {
     });
 
     this.model.on('change:stock_price', () => {
-
+      const stockPrice = Number(this.model.get('stock_symbol'));
+      this.$el.find('span.results_price').text(stockPrice);
     });
 
     return this;
