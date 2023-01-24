@@ -7,13 +7,16 @@ import {
   ISerializers,
 } from '@jupyter-widgets/base';
 
-import { MODULE_NAME, MODULE_VERSION } from './version';
+import { MODULE_NAME, MODULE_VERSION } from '../version';
 
 // Import the CSS
-import '../css/widget.css';
+import '../../css/widget.css';
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {
+
+    console.log('client-side: printing from ExampleModel!!!');
+
     return {
       ...super.defaults(),
       _model_name: ExampleModel.model_name,
