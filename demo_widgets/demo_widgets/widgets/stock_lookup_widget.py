@@ -11,6 +11,7 @@ TODO: Add module docstring
 from ipywidgets import DOMWidget
 from traitlets import Unicode, Float
 from .._frontend import module_name, module_version
+import yfinance as yf
 
 
 class StockLookupWidget(DOMWidget):
@@ -35,4 +36,10 @@ class StockLookupWidget(DOMWidget):
 
     
     def _handle_stock_lookup_msg(self, _, content, buffers):
-        print(content)
+        if content["name"] == "stock-lookup":
+            stock_symbol = content["stock_symbol"]
+            stock_ticker = yf.Ticker(stock_symbol)
+            # print(stock_ticker.info)
+            self.stock_symbol = stock_symbol
+            print(stock_ticker.info["currentPrice"])
+            self.stock_price = stock_ticker.info["currentPrice"]

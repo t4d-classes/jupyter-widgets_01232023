@@ -69,6 +69,7 @@ export class StockLookupView extends DOMWidgetView {
     // handle the button click
     this.$el.find('button.get-price-button').on('click', () => {
       // retrieve the value from the input field
+      this.model.set('stock_price', -1);
       const stockSymbol = this.$el.find('input[name=stock_symbol]').val();
       // using the comm to send data to the other side
       this.send({ name: 'stock-lookup', stock_symbol: stockSymbol });
@@ -82,17 +83,19 @@ export class StockLookupView extends DOMWidgetView {
     });
 
     this.model.on('change:stock_price', () => {
-      const stockPrice = Number(this.model.get('stock_symbol'));
+      const stockPrice = Number(this.model.get('stock_price'));
       this.$el.find('span.results_price').text(stockPrice);
     });
 
     // show/hide the results
     this.model.on('change', () => {
       const stockSymbol = this.model.get('stock_symbol');
-      const stockPrice = Number(this.model.get('stock_symbol'));
+      const stockPrice = Number(this.model.get('stock_price'));
+
+      console.log('stock price: ', stockPrice, typeof stockPrice);
 
       const resultsDiv = this.$el.find('div.results');
-      if (stockSymbol.length === 0 && stockPrice < 0) {
+      if (stockSymbol.length === 0 || stockPrice < 0) {
         resultsDiv.addClass('hide-results');
       } else {
         resultsDiv.removeClass('hide-results');
