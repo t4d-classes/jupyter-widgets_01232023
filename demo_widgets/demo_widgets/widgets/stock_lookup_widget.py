@@ -26,8 +26,13 @@ class StockLookupWidget(DOMWidget):
     input_label = Unicode('Stock Symbol').tag(sync=True)
     button_text = Unicode('Get Price').tag(sync=True)
     stock_symbol = Unicode('').tag(sync=True)
-    stock_price = Float(0).tag(sync=True)
+    stock_price = Float(-1).tag(sync=True)
 
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.on_msg(self._handle_stock_lookup_msg)
+
+    
+    def _handle_stock_lookup_msg(self, _, content, buffers):
+        print(content)

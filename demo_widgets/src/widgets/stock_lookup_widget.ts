@@ -28,7 +28,7 @@ export class StockLookupModel extends DOMWidgetModel {
       input_label: 'Stock Symbol',
       button_text: 'Get Price',
       stock_symbol: '',
-      stock_price: 0,
+      stock_price: -1,
     };
   }
 
@@ -71,7 +71,7 @@ export class StockLookupView extends DOMWidgetView {
       // retrieve the value from the input field
       const stockSymbol = this.$el.find('input[name=stock_symbol]').val();
       // using the comm to send data to the other side
-      this.send({ name: 'lookup-request', stock_symbol: stockSymbol });
+      this.send({ name: 'stock-lookup', stock_symbol: stockSymbol });
     });
 
     // populate the results
