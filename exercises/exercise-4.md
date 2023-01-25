@@ -1,6 +1,6 @@
 # Exercise 4
 
-1. Add a new button to each Stock Chart Widget list item. The text content of the button should be "View Chart".
+1. Add a new button to each Stock List Widget list item. The text content of the button should be "View Chart".
 
 2. When the button is clicked display a stock chart of the closing price for the last 30 days.
 
