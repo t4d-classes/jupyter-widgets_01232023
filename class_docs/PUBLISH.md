@@ -29,6 +29,12 @@ twine upload dist/*
 
 # Use the Jupyter Widget
 
+Note: Ensure you have Node.js installed. Also, enable Yarn within the Node.js installation with the following command:
+
+```bash
+corepack enable
+```
+
 1. Create a new project folder and change into the folder.
 
 ```bash
