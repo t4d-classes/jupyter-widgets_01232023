@@ -85,7 +85,7 @@ export class StockListView extends DOMWidgetView {
     this.$el.html(this.template(this.model.attributes));
     this.refreshStocksList();
 
-    this.$el.find('ul.stock_symbol_list').on('click', 'button', (evt: any) => {
+    this.$el.find('ul.stock_symbol_list').on('click', 'button' /* css selector */, (evt: any) => {
       const stockSymbol = $(evt.target).attr('data-stock-symbol');
       this.send({ name: 'remove-stock', stock_symbol: stockSymbol });
     });
@@ -106,7 +106,7 @@ export class StockListView extends DOMWidgetView {
 
     setInterval(() => {
       this.send({ name: 'refresh-stocks' });
-    }, 60000);
+    }, 60000 /* 1 min, 60 secs */);
 
 
     return this;
