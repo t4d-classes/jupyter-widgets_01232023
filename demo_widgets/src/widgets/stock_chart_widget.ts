@@ -29,6 +29,7 @@ export class StockChartModel extends DOMWidgetModel {
 
       stock_symbol: 'AAPL',
       stock_data: [[], []] as StockData,
+      stock_days: 90,
     };
   }
 
@@ -49,17 +50,36 @@ export class StockChartView extends DOMWidgetView {
   render(): StockChartView {
     this.el.classList.add('stock-chart-widget');
 
-    const chartCanvas = document.createElement('canvas');
-    this.$el.append(chartCanvas);
+    this.model.on('change:stock_symbol', this._updateData, this);
+    this.model.on('change:stock_days', this._updateData, this);
+    this.model.on('change:stock_data', this._updateChart, this);
 
     this._updateChart();
 
     return this;
   }
 
+  _updateData(): void {
+    this.send({
+      name: 'load-stock-data',
+      stock_symbol: this.model.get('stock_symbol'),
+      stock_days: this.model.get('stock_days'),
+    });
+  }
+
+  // _updateData: () => void = () => {
+  //   this.send({
+  //     name: 'update-data',
+  //     stock_symbol: this.model.get('stock_symbol')
+  //   });
+  // };
+
   _updateChart(): void {
     const [labels, prices] = this.model.get('stock_data') as StockData;
-    const chartCanvas = this.$el.find('canvas')[0] as HTMLCanvasElement;
+
+    this.$el.empty();
+
+    const chartCanvas = document.createElement('canvas');
 
     const context = chartCanvas.getContext('2d');
     if (context) {
@@ -83,5 +103,7 @@ export class StockChartView extends DOMWidgetView {
         },
       });
     }
+
+    this.$el.append(chartCanvas);
   }
 }

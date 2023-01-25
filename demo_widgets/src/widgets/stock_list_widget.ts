@@ -35,6 +35,7 @@ export class StockListModel extends DOMWidgetModel {
       button_text: 'Add Stock',
       stock_symbol: '',
       stocks: [] as StockListItem[],
+      selected_stock_symbol: '',
     };
   }
 
@@ -75,7 +76,8 @@ export class StockListView extends DOMWidgetView {
   stockListItemTemplate = _.template(`
     <li>
       <span><%= stock_symbol %>: <%= stock_price %></span>
-      <button type="button" data-stock-symbol="<%= stock_symbol %>">X</button>
+      <button type="button" data-op-name="remove-stock" data-stock-symbol="<%= stock_symbol %>">X</button>
+      <button type="button" data-op-name="view-stock-chart" data-stock-symbol="<%= stock_symbol %>">View Chart</button>
     </li>
   `);
 
@@ -85,10 +87,28 @@ export class StockListView extends DOMWidgetView {
     this.$el.html(this.template(this.model.attributes));
     this.refreshStocksList();
 
-    this.$el.find('ul.stock_symbol_list').on('click', 'button' /* css selector */, (evt: any) => {
-      const stockSymbol = $(evt.target).attr('data-stock-symbol');
-      this.send({ name: 'remove-stock', stock_symbol: stockSymbol });
-    });
+    this.$el.find('ul.stock_symbol_list')
+      .on('click', 'button' /* css selector */, (evt: any) => {
+        const opButton = $(evt.target);
+
+        const opName = opButton.attr('data-op-name');
+        const stockSymbol = opButton.attr('data-stock-symbol');
+
+        console.log('opName', opName);
+
+        switch (opName) {
+          case 'remove-stock':
+            console.log('ran remove stock');
+            this.send({ name: 'remove-stock', stock_symbol: stockSymbol });
+            break;
+          case 'view-stock-chart':
+            this.send({ name: 'select-stock', stock_symbol: stockSymbol });
+            break;
+          default:
+            console.log('unknown op name');
+            break;
+        }
+      });
 
     // handle the button click
     this.$el.find('button.add-stock-button').on('click', () => {

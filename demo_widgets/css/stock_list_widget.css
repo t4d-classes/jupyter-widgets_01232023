@@ -1,9 +1,8 @@
 .stock-list-widget {
   margin: 4px;
-  background-color: white;
-  padding: 0px 2px;
-  border: 1px solid black;
   padding: 4px;
+  color:white;
+
 }
 
 .stock-list-widget .hide-results {

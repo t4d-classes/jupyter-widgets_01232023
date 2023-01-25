@@ -48,6 +48,7 @@ class StockListWidget(DOMWidget):
         { "stock_symbol": "MSFT", "stock_price": 0 },
         { "stock_symbol": "MU", "stock_price": 0 }
     ]).tag(sync=True)
+    selected_stock_symbol = Unicode('').tag(sync=True)
 
 
     def __init__(self, **kwargs):
@@ -92,4 +93,7 @@ class StockListWidget(DOMWidget):
                 stock_prices_update_thread = threading.Thread(target=self.update_stock_prices)
                 stock_prices_update_thread.start()
                 # self.update_stock_prices()
+            case "select-stock":
+                self.selected_stock_symbol = content["stock_symbol"]
+                
 
